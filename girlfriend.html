@@ -44,12 +44,22 @@ button:hover{background:#fff;color:#111}
 @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
 .conf{position:absolute;top:-10px;width:6px;height:6px;z-index:6;animation:cf 2.5s linear forwards}
 @keyframes cf{to{transform:translateY(380px) rotate(360deg);opacity:.7}}
+#girl{transition:transform 2.2s linear}
+.hugarm{display:none}
+.happy #girl{transform:translateX(-38px)}
+.sad #girl{transform:translateX(48px);transition-duration:2.6s;transition-delay:.4s}
+.happy:not(.hug) #girl .l,.sad #girl .l{animation:step .25s infinite alternate}
+.happy:not(.hug) #girl .r,.sad #girl .r{animation:step .25s infinite alternate-reverse}
+@keyframes step{to{transform:translateY(-1.5px)}}
+.hug .hugarm{display:block}
+.hug #girl{animation:sway 1s infinite alternate}
+@keyframes sway{to{transform:translateX(-38px) translateY(-1px)}}
 </style>
 </head>
 <body>
 <div class="scene" id="scene">
   <div class="snow" id="snow"></div>
-  <div class="win" id="win"><div class="card"><div class="big"> Congratulations! </div><div class="big"> ມາສ້າງຫນັງສືເລ່ມໃຫມ່ໄປນຳກັນ:D </div><p>Pong &amp; Namthip<br>are now together ❤</p><button id="ok">Yay!</button></div></div>
+  <div class="win" id="win"><div class="card"><div class="big"> Congratulations! </div><div class="big"> ມາສ້າງຫນັງສືເລມໃຫມ່ກັນ </div><p>Pong &amp; Namthip<br>are now together ❤</p><button id="ok">Yay!</button></div></div>
   <div class="bubble show" id="q">Namthip, will you be my girlfriend? </div>
   <div class="bubble" id="a"></div>
   <svg viewBox="0 0 100 70">
@@ -59,31 +69,34 @@ button:hover{background:#fff;color:#111}
     <rect x="49" y="18" width="1.5" height="40" fill="#555"/>
     <rect x="46" y="14" width="7" height="3" fill="#2a2a2a"/>
     <rect x="48" y="12" width="3" height="2" fill="#ffe680"/>
-    <text x="17" y="67" font-size="4" fill="#fff" text-anchor="middle" font-family="Courier New,monospace">Pong</text><text x="73" y="67" font-size="4" fill="#f0a6c4" text-anchor="middle" font-family="Courier New,monospace">Namthip</text>
-    <!-- girl -->
-    <rect x="68" y="22" width="10" height="5" fill="#c99a6a"/>
-    <rect x="76" y="24" width="3" height="14" fill="#c99a6a"/>
+    <text x="17" y="67" font-size="4" fill="#fff" text-anchor="middle" font-family="Courier New,monospace">Pong</text>
+    <g id="girl"><text x="73" y="67" font-size="4" fill="#f0a6c4" text-anchor="middle" font-family="Courier New,monospace">Namthip</text>
+    <rect x="68" y="22" width="10" height="5" fill="#0a0a0a"/><rect x="69" y="22" width="8" height="1" fill="#444"/>
+    <rect x="76" y="24" width="3" height="14" fill="#0a0a0a"/><rect x="67" y="24" width="2" height="6" fill="#0a0a0a"/>
     <rect x="69" y="26" width="7" height="7" fill="#f1d2b0"/>
     <rect x="70" y="28" width="1" height="2" fill="#222"/><rect x="74" y="28" width="1" height="2" fill="#222"/>
-    <rect x="66" y="34" width="14" height="14" fill="#b8527f"/>
-    <rect x="69" y="48" width="2" height="9" fill="#f1d2b0"/><rect x="75" y="48" width="2" height="9" fill="#f1d2b0"/>
-    <rect x="68" y="57" width="4" height="2" fill="#111"/><rect x="74" y="57" width="4" height="2" fill="#111"/>
+    <rect x="67" y="34" width="12" height="11" fill="#f7f7f7"/><rect x="65" y="35" width="2" height="9" fill="#f7f7f7"/><rect x="79" y="35" width="2" height="9" fill="#f7f7f7"/>
+    <rect class="l" x="68" y="45" width="4.5" height="12" fill="#e4e4e4"/><rect class="r" x="73.5" y="45" width="4.5" height="12" fill="#e4e4e4"/>
+    <rect class="l" x="68" y="57" width="4" height="2" fill="#111"/><rect class="r" x="74" y="57" width="4" height="2" fill="#111"/>
+    <rect class="hugarm" x="57" y="35" width="10" height="2" fill="#f7f7f7"/><rect class="hugarm" x="57" y="38" width="9" height="2" fill="#f7f7f7"/>
+    </g>
     <!-- boy -->
     <g id="boy">
-      <rect x="12" y="18" width="10" height="4" fill="#8a5a1e"/>
-      <rect x="13" y="22" width="8" height="8" fill="#e0a878"/>
+            <rect x="13" y="22" width="8" height="9" fill="#f6d0b4"/><rect x="15" y="30" width="4" height="2" fill="#e8b898"/><rect x="12" y="25" width="1" height="3" fill="#f6d0b4"/><rect x="12" y="27" width="1" height="1" fill="#ddd"/><g fill="#0b0b0b"><rect x="11" y="16" width="12" height="7"/><rect x="12" y="15" width="10" height="1"/><rect x="11" y="22" width="2" height="3"/><rect x="21" y="22" width="2" height="5"/><rect x="13" y="22" width="5" height="2"/><rect x="19" y="22" width="2" height="1"/></g><rect x="13" y="17" width="4" height="1" fill="#3a3a3a"/><rect x="18" y="19" width="3" height="1" fill="#3a3a3a"/>
       <rect x="15" y="24" width="1" height="2" fill="#222"/><rect x="19" y="24" width="1" height="2" fill="#222"/>
-      <rect x="13" y="29" width="8" height="3" fill="#444"/>
+            <g fill="none" stroke="#111" stroke-width=".6"><circle cx="15.5" cy="25" r="1.7"/><circle cx="19.5" cy="25" r="1.7"/></g><rect x="17" y="24.6" width=".8" height=".6" fill="#111"/>
       <g class="mouth h"><rect x="15" y="27" width="1" height="1" fill="#222"/><rect x="16" y="28" width="3" height="1" fill="#222"/><rect x="19" y="27" width="1" height="1" fill="#222"/></g>
       <g class="mouth s"><rect x="16" y="28" width="3" height="1" fill="#222"/></g>
       <rect class="tear" x="15" y="26" width="1" height="2" fill="#5ab4ff"/>
       <rect class="tear" x="19" y="26" width="1" height="2" fill="#5ab4ff"/>
-      <rect x="9" y="32" width="16" height="14" fill="#a31f24"/>
-      <rect x="16" y="32" width="1" height="14" fill="#999"/>
+      <rect x="9" y="32" width="16" height="15" fill="#151515"/>
+      <rect x="9" y="32" width="1" height="15" fill="#444"/><rect x="24" y="32" width="1" height="15" fill="#444"/>
+      <rect x="14" y="32" width="6" height="14" fill="#f4f4f4"/>
+      <rect x="15" y="32" width="4" height="1" fill="#cfcfcf"/>
       <rect x="11" y="46" width="12" height="12" fill="#6a6a9a"/>
       <rect x="9" y="58" width="6" height="2" fill="#ccc"/><rect x="19" y="58" width="6" height="2" fill="#ccc"/>
       <g id="flower">
-        <rect x="25" y="36" width="6" height="2" fill="#a31f24"/>
+        <rect x="25" y="36" width="6" height="2" fill="#151515"/>
         <rect x="30" y="30" width="5" height="4" fill="#f0467a"/>
         <rect x="32" y="34" width="1" height="8" fill="#3cb55a"/>
       </g>
@@ -109,7 +122,8 @@ yes.onclick=function(){
   answer('happy','yes! \u2764');
   var cols=['#f0467a','#ffe680','#5ab4ff','#3cb55a','#fff'];
   for(var i=0;i<60;i++){var c=document.createElement('i');c.className='conf';c.style.left=Math.random()*100+'%';c.style.background=cols[i%5];c.style.animationDelay=(Math.random()*1.2)+'s';scene.appendChild(c);setTimeout(function(e){e.remove()},4200,c);}
-  setTimeout(function(){document.getElementById('win').classList.add('show')},1200);
+  setTimeout(function(){if(scene.classList.contains('happy'))scene.classList.add('hug')},2300);
+  setTimeout(function(){if(scene.classList.contains('happy'))document.getElementById('win').classList.add('show')},3800);
 };
 document.getElementById('ok').onclick=function(){document.getElementById('win').classList.remove('show')};
 no.onclick=function(){answer('sad','no.')};
