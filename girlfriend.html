@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pong ❤ Namthip</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:#161618;color:#fff;font-family:"Courier New",monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:16px}
+.scene{position:relative;width:100%;max-width:520px;background:#222224;border-radius:8px;overflow:hidden}
+svg{display:block;width:100%;height:auto;shape-rendering:crispEdges}
+.bubble{position:absolute;top:10px;background:#111;border:1px solid #444;border-radius:4px;padding:8px 12px;font-size:clamp(11px,3vw,15px);opacity:0;transition:opacity .4s}
+.bubble.show{opacity:1}
+#q{left:10px;opacity:1}
+#a{right:10px}
+.btns{display:flex;gap:16px;margin-top:20px}
+button{font:inherit;font-size:16px;padding:10px 28px;border:2px solid #fff;background:#111;color:#fff;border-radius:4px;cursor:pointer}
+button:hover{background:#fff;color:#111}
+#yes{border-color:#f0467a}
+#again{display:none}
+.snow{position:absolute;inset:0;pointer-events:none}
+.snow i{position:absolute;top:-6px;width:4px;height:4px;background:#bbb;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(340px)}}
+#boy{transform-box:fill-box;transform-origin:50% 100%;transition:transform .8s}
+.mouth,.tear,.heart{display:none}
+.happy #boy{animation:hop .5s infinite alternate}
+.happy .mouth.h{display:block}
+.happy .heart{display:block;animation:up 1.6s infinite}
+@keyframes hop{to{transform:translateY(-6px)}}
+@keyframes up{from{transform:translateY(0);opacity:1}to{transform:translateY(-22px);opacity:0}}
+.sad #boy{transform:rotate(-14deg) translateY(3px)}
+.sad .mouth.s{display:block}
+.sad .tear{display:block;animation:cry 1s infinite}
+.sad #flower{transform-box:fill-box;transform-origin:0 0;transform:rotate(80deg) translate(4px,10px);opacity:.6}
+#flower{transition:transform .8s}
+@keyframes cry{from{transform:translateY(0)}to{transform:translateY(8px)}}
+.win{position:absolute;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:5}
+.win.show{display:flex}
+.card{background:#111;border:2px solid #f0467a;border-radius:8px;padding:20px 24px;text-align:center;animation:pop .5s}
+.card .big{font-size:clamp(16px,5vw,24px);color:#ffe680;margin-bottom:8px}
+.card p{margin:0 0 14px;font-size:clamp(13px,4vw,18px);line-height:1.5}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.conf{position:absolute;top:-10px;width:6px;height:6px;z-index:6;animation:cf 2.5s linear forwards}
+@keyframes cf{to{transform:translateY(380px) rotate(360deg);opacity:.7}}
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="snow" id="snow"></div>
+  <div class="win" id="win"><div class="card"><div class="big"> Congratulations! </div><div class="big"> ມາສ້າງຫນັງສືເລ່ມໃຫມ່ໄປນຳກັນ:D </div><p>Pong &amp; Namthip<br>are now together ❤</p><button id="ok">Yay!</button></div></div>
+  <div class="bubble show" id="q">Namthip, will you be my girlfriend? </div>
+  <div class="bubble" id="a"></div>
+  <svg viewBox="0 0 100 70">
+    <rect width="100" height="70" fill="#222224"/>
+    <rect y="58" width="100" height="12" fill="#3a3a3c"/>
+    <!-- lamp -->
+    <rect x="49" y="18" width="1.5" height="40" fill="#555"/>
+    <rect x="46" y="14" width="7" height="3" fill="#2a2a2a"/>
+    <rect x="48" y="12" width="3" height="2" fill="#ffe680"/>
+    <text x="17" y="67" font-size="4" fill="#fff" text-anchor="middle" font-family="Courier New,monospace">Pong</text><text x="73" y="67" font-size="4" fill="#f0a6c4" text-anchor="middle" font-family="Courier New,monospace">Namthip</text>
+    <!-- girl -->
+    <rect x="68" y="22" width="10" height="5" fill="#c99a6a"/>
+    <rect x="76" y="24" width="3" height="14" fill="#c99a6a"/>
+    <rect x="69" y="26" width="7" height="7" fill="#f1d2b0"/>
+    <rect x="70" y="28" width="1" height="2" fill="#222"/><rect x="74" y="28" width="1" height="2" fill="#222"/>
+    <rect x="66" y="34" width="14" height="14" fill="#b8527f"/>
+    <rect x="69" y="48" width="2" height="9" fill="#f1d2b0"/><rect x="75" y="48" width="2" height="9" fill="#f1d2b0"/>
+    <rect x="68" y="57" width="4" height="2" fill="#111"/><rect x="74" y="57" width="4" height="2" fill="#111"/>
+    <!-- boy -->
+    <g id="boy">
+      <rect x="12" y="18" width="10" height="4" fill="#8a5a1e"/>
+      <rect x="13" y="22" width="8" height="8" fill="#e0a878"/>
+      <rect x="15" y="24" width="1" height="2" fill="#222"/><rect x="19" y="24" width="1" height="2" fill="#222"/>
+      <rect x="13" y="29" width="8" height="3" fill="#444"/>
+      <g class="mouth h"><rect x="15" y="27" width="1" height="1" fill="#222"/><rect x="16" y="28" width="3" height="1" fill="#222"/><rect x="19" y="27" width="1" height="1" fill="#222"/></g>
+      <g class="mouth s"><rect x="16" y="28" width="3" height="1" fill="#222"/></g>
+      <rect class="tear" x="15" y="26" width="1" height="2" fill="#5ab4ff"/>
+      <rect class="tear" x="19" y="26" width="1" height="2" fill="#5ab4ff"/>
+      <rect x="9" y="32" width="16" height="14" fill="#a31f24"/>
+      <rect x="16" y="32" width="1" height="14" fill="#999"/>
+      <rect x="11" y="46" width="12" height="12" fill="#6a6a9a"/>
+      <rect x="9" y="58" width="6" height="2" fill="#ccc"/><rect x="19" y="58" width="6" height="2" fill="#ccc"/>
+      <g id="flower">
+        <rect x="25" y="36" width="6" height="2" fill="#a31f24"/>
+        <rect x="30" y="30" width="5" height="4" fill="#f0467a"/>
+        <rect x="32" y="34" width="1" height="8" fill="#3cb55a"/>
+      </g>
+    </g>
+    <g class="heart" fill="#f0467a"><rect x="40" y="26" width="4" height="3"/><rect x="58" y="22" width="4" height="3"/><rect x="28" y="14" width="4" height="3"/></g>
+  </svg>
+</div>
+<div class="btns">
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+  <button id="again">Try again</button>
+</div>
+<script>
+var scene=document.getElementById('scene'),a=document.getElementById('a'),
+yes=document.getElementById('yes'),no=document.getElementById('no'),again=document.getElementById('again');
+var snow=document.getElementById('snow');
+for(var i=0;i<25;i++){var d=document.createElement('i');d.style.left=Math.random()*100+'%';d.style.animationDuration=(3+Math.random()*4)+'s';d.style.animationDelay=(-Math.random()*6)+'s';snow.appendChild(d);}
+function answer(cls,text){
+  scene.className='scene '+cls;a.textContent=text;a.classList.add('show');
+  yes.style.display=no.style.display='none';again.style.display='inline-block';
+}
+yes.onclick=function(){
+  answer('happy','yes! \u2764');
+  var cols=['#f0467a','#ffe680','#5ab4ff','#3cb55a','#fff'];
+  for(var i=0;i<60;i++){var c=document.createElement('i');c.className='conf';c.style.left=Math.random()*100+'%';c.style.background=cols[i%5];c.style.animationDelay=(Math.random()*1.2)+'s';scene.appendChild(c);setTimeout(function(e){e.remove()},4200,c);}
+  setTimeout(function(){document.getElementById('win').classList.add('show')},1200);
+};
+document.getElementById('ok').onclick=function(){document.getElementById('win').classList.remove('show')};
+no.onclick=function(){answer('sad','no.')};
+again.onclick=function(){
+  document.getElementById('win').classList.remove('show');scene.className='scene';a.classList.remove('show');
+  yes.style.display=no.style.display='inline-block';again.style.display='none';
+};
+</script>
+</body>
+</html>
